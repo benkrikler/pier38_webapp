@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007080931) do
+ActiveRecord::Schema.define(version: 20171007150925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,7 +47,9 @@ ActiveRecord::Schema.define(version: 20171007080931) do
     t.string "uuid"
     t.string "nationality"
     t.string "gender"
-    t.string "parent_origin"
+    t.boolean "hearing_impaired", default: false
+    t.string "mother_origin"
+    t.string "father_origin"
   end
 
 end

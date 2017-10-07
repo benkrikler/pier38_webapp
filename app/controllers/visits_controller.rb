@@ -29,8 +29,10 @@ class VisitsController < InheritedResources::Base
                   :uuid,
                   :nationality,
                   :gender,
-                  :parent_origin,
+                  :mother_origin,
+                  :father_origin,
                   :birthday_year,
-                  :birthday_month)
+                  :birthday_month,
+                  :hearing_impaired)
   end
 end

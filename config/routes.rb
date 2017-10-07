@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   end
   devise_for :users
   root to: 'visits#index'
+
+  match '/about', to: 'pages#about', via: :get
+
 end

@@ -6,11 +6,25 @@
         <%= simple_form_for @visit,
                             remote: true,
                             id: 'question-form' do |f| %>
-          <%= f.input :birthday_month %>
-          <%= f.input :birthday_year %>
+          <div class='row'>
+            <div class='col-6'>
+              <%= f.input :birthday_month, label: 'You were born (month)' %>
+            </div>
+            <div class='col-6'>
+              <%= f.input :birthday_year, label: 'You were born (year)' %>
+            </div>
+          </div>
           <%= f.input :nationality %>
-          <%= f.input :gender, as: :radio_buttons, collection: ["Male", "Female"] %>
-          <%= f.input :parent_origin %>
+          <%= f.input :gender, as: :radio_buttons, collection: ["Male", "Female","Other"], label: false %>
+          <div class='row'>
+            <div class='col-6'>
+              <%= f.input :mother_origin %>
+            </div>
+            <div class='col-6'>
+              <%= f.input :father_origin %>
+            </div>
+          </div>
+          <%= f.input :hearing_impaired, as: :radio_buttons, collection: ["Yes", "No"] %>
           <%= f.hidden_field :uuid %>
           <%= f.submit %>
         <% end %>
