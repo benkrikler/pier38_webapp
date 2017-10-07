@@ -26,6 +26,7 @@ gem 'carrierwave'
 gem 'carrierwave_direct'
 gem 'fog-aws'
 gem "mini_magick"
+gem "figaro"
 
 
 group :development, :test do
