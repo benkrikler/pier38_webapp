@@ -14,8 +14,9 @@ class VisitsController < InheritedResources::Base
   def photo
     @visit = Visit.where(uuid: visit_params[:uuid]).first
     @visit.update(photo_file: visit_params[:photo_file])
-    age = PredictAgeService.new(@visit).call
-    byebug
+    response = PredictAgeService.new(@visit).call
+    @age = "<div id='predicted-age'>#{response.parsed_response["prediction"]}</div>".html_safe
+    render 'visits/age_predicted'
   end
 
   def visit_params
