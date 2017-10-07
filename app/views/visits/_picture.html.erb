@@ -1,0 +1,25 @@
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-heading text-center">
+      <h2>Upload your picture</h2>
+      <p class="text-muted">Make it a good one, no glasses or head coverings please</p>
+      <hr>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 col-xs-12">
+        <%= simple_form_for @visit,  url: photo_visits_path, method: :post, html: { id: 'profile-image-form' } do |i| %>
+          <%#= i.label :image do %>
+            <%#= concept(Image::Cell,@user,size: :large,current_user: current_user) %>
+          <%# end %>
+          <%= i.file_field :photo_file, class: 'profile-image-upload' %>
+          <%= i.hidden_field :uuid %>
+        <br/>
+        <div id="loading-text"><b>...loading...</b></div>
+        <%= i.submit %>
+      <% end %>
+
+
+      </div>
+    </div>
+  </div>
+</section>
