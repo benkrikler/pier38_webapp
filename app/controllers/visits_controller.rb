@@ -15,8 +15,9 @@ class VisitsController < InheritedResources::Base
     @visit = Visit.where(uuid: visit_params[:uuid]).first
     @visit.update(photo_file: visit_params[:photo_file])
     response = PredictAgeService.new(@visit).call
-    @age = "<div id='predicted-age'>#{response.parsed_response["prediction"]}</div>".html_safe
-    render 'visits/age_predicted'
+    @visit.update(predicted_image_age: response.parsed_response["prediction"])
+    #@age = "<div id='predicted-age'>#{response.parsed_response["prediction"]}</div>".html_safe
+    render 'visits/audio_test'
   end
 
   def visit_params
@@ -24,6 +25,8 @@ class VisitsController < InheritedResources::Base
           .permit(:person,
                   :photo_file,
                   :visit_dttm,
+                  :predicted_audio_age,
+                  :predicted_image_age,
                   :audio_threshold,
                   :audio_error,
                   :uuid,

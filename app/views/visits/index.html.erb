@@ -1,10 +1,42 @@
 <%= render partial: 'visits/landing' %>
 
-<%= render partial: 'visits/picture' %>
+<section class="download bg-primary text-center" id="download">
+  <div class="container" id='single-page'>
+    <h2 class="section-heading text-center">Upload your selfie</h2>
+    <div class="row justify-content-center">
+      <div class="col-4 col-offset-2">
+        <%= image_tag 'avatar-default.png'  %>
 
-<%= render partial: 'visits/questions' %>
+        <%= simple_form_for @visit,  url: photo_visits_path, method: :post, remote: true, html: { id: 'profile-image-form' } do |i| %>
+          <%= i.file_field :photo_file, class: 'profile-image-upload' %>
+          <%= i.hidden_field :uuid %>
+          <%= i.submit 'Upload Selfie', class: 'btn btn-outline btn-xl' %>
+        <% end %>
+      </div>
+      <div class='col-3'>
+        <ul class='list-group'>
+          <li class='list-group-item lead text-muted'>headshot</li>
+          <li class='list-group-item lead text-muted'>no glasses</li>
+          <li class='list-group-item lead text-muted'>no head covering</li>
+          <li class='list-group-item lead text-muted'>no gadgets</li>
+          <li class='list-group-item lead text-muted'>good lighting</li>
+          <li class='list-group-item lead text-muted'>square aspect</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-<%= render partial: 'visits/sound' %>
+
+
+
+
+
+<%#= render partial: 'visits/picture' %>
+
+<%#= render partial: 'visits/questions' %>
+
+<%#= render partial: 'visits/sound' %>
 
  <section class="contact bg-primary" id="contact">
    <div class="container">

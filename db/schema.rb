@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007150925) do
+ActiveRecord::Schema.define(version: 20171007175254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20171007150925) do
     t.float "audio_error"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "predicted_age"
+    t.float "predicted_image_age"
     t.integer "stated_age"
     t.integer "birthday_month"
     t.integer "birthday_year"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20171007150925) do
     t.boolean "hearing_impaired", default: false
     t.string "mother_origin"
     t.string "father_origin"
+    t.float "predicted_audio_age"
   end
 
 end

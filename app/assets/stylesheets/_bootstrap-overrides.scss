@@ -23,7 +23,7 @@
     &:active {
         color: red;
         border-color: $theme-primary;
-        background-color: $theme-primary;
+        background-color: transparent;
     }
     &:hover {
       color: white;
@@ -34,7 +34,10 @@
 
 .btn {
     border-radius: 300px;
+    background-color: white;
+
     @include alt-font;
+
 }
 
 .btn-xl {

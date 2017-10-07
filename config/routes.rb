@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  ActiveAdmin.routes(self)
   resources :visits do
     post :photo, on: :collection
     post :audio, on: :collection
