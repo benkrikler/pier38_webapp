@@ -1,10 +1,13 @@
-<section class="download bg-primary text-center" id="download">
+<%= render partial: 'visits/landing' %>
+
+<section class="download bg-primary text-center" id="anchor">
   <div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto">
         <h2 class="section-heading">Tell us about yourself</h2>
         <%= simple_form_for @visit,
-                            remote: true,
+                            url: visit_questions_update_path,
+                            method: :post,
                             id: 'question-form' do |f| %>
           <div class='row'>
             <div class='col-6'>
@@ -14,19 +17,19 @@
               <%= f.input :birthday_year, label: 'You were born (year)' %>
             </div>
           </div>
-          <%= f.input :nationality %>
+          <%= f.country_select :nationality %>
           <%= f.input :gender, as: :radio_buttons, collection: ["Male", "Female","Other"], label: false %>
           <div class='row'>
             <div class='col-6'>
-              <%= f.input :mother_origin %>
+              <%= f.country_select :mother_origin, { :class => "form-control" } %>
             </div>
             <div class='col-6'>
-              <%= f.input :father_origin %>
+              <%= f.country_select :father_origin, { :class => "form-control" } %>
             </div>
           </div>
           <%= f.input :hearing_impaired, as: :radio_buttons, collection: ["Yes", "No"] %>
           <%= f.hidden_field :uuid %>
-          <%= f.submit %>
+          <%= f.submit 'Go', class: 'btn btn-outline btn-xl' %>
         <% end %>
 
         <div class="badges">

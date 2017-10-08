@@ -1,4 +1,4 @@
-class PredictAgeService
+class PredictImageAgeService
 
   include HTTParty
   debug_output $stdout

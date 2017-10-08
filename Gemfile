@@ -27,6 +27,8 @@ gem 'carrierwave_direct'
 gem 'fog-aws'
 gem "mini_magick"
 gem "figaro"
+gem 'font-awesome-sass', '~> 4.7.0'
+gem 'country_select'
 
 
 group :development, :test do

@@ -2,14 +2,19 @@
 
 <section class="download bg-primary text-center" id="download">
   <div class="container" id='single-page'>
-    <h2 class="section-heading text-center">Upload your selfie</h2>
+    <h2 class="section-heading text-center"><i class="fa fa-camera-retro"></i>&nbsp;Step 1: Upload your selfie</h2>
     <div class="row justify-content-center">
-      <div class="col-4 col-offset-2">
-        <%= image_tag 'avatar-default.png'  %>
+      <div class="col-4">
+        <%= simple_form_for @visit,  url: photo_visits_path, method: :post do |i| %>
+          <%= i.label :photo_file do %>
+            <%= image_tag 'avatar-default.png', class: 'img-fluid' %>
+          <% end %>
+          <span style="display:none;">
+            <%= i.file_field :photo_file, html: { hidden: true } %>
+          </span>
 
-        <%= simple_form_for @visit,  url: photo_visits_path, method: :post, remote: true, html: { id: 'profile-image-form' } do |i| %>
-          <%= i.file_field :photo_file, class: 'profile-image-upload' %>
           <%= i.hidden_field :uuid %>
+          <br/>
           <%= i.submit 'Upload Selfie', class: 'btn btn-outline btn-xl' %>
         <% end %>
       </div>

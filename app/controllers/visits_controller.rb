@@ -5,19 +5,40 @@ class VisitsController < InheritedResources::Base
     @visit = Visit.create!(uuid: SecureRandom.uuid)
   end
 
-  def update
-    @visit = Visit.where(uuid: visit_params[:uuid]).first
-    @visit.update(visit_params)
-    render 'visits/questions_submitted'
-  end
-
   def photo
     @visit = Visit.where(uuid: visit_params[:uuid]).first
     @visit.update(photo_file: visit_params[:photo_file])
-    response = PredictAgeService.new(@visit).call
+    response = PredictImageAgeService.new(@visit).call
     @visit.update(predicted_image_age: response.parsed_response["prediction"])
-    #@age = "<div id='predicted-age'>#{response.parsed_response["prediction"]}</div>".html_safe
-    render 'visits/audio_test'
+    redirect_to visit_audio_path(@visit.id)
+  end
+
+  def audio
+    @visit = Visit.find(params[:visit_id])
+    response = PredictAudioAgeService.new(@visit).call
+    @visit.update(predicted_audio_age: response.parsed_response["prediction"])
+    render :audio
+  end
+
+  def audio_update
+    @visit = Visit.find(params[:visit_id])
+    @visit.update(audio_threshold: visit_params[:audio_threshold])
+    redirect_to visit_questions_path(@visit.id)
+  end
+
+  def questions
+    @visit = Visit.find(params[:visit_id])
+    render :questions
+  end
+
+  def questions_update
+    @visit = Visit.find(params[:visit_id])
+    @visit.update(visit_params)
+    redirect_to visit_result_path(@visit.id)
+  end
+
+  def result
+    @visit = Visit.find(params[:visit_id])
   end
 
   def visit_params

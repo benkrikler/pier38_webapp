@@ -10,7 +10,8 @@
 @import "contact.scss";
 @import "footer.scss";
 @import "bootstrap-overrides.scss";
-
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 .landing-img {
   max-width: 80%;
@@ -22,4 +23,12 @@
 
 .red {
   color: red;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-left: 20px;
+  margin-right: 5px;
 }

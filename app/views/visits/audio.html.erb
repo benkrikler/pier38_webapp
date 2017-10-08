@@ -1,0 +1,50 @@
+<%= render partial: 'visits/landing' %>
+
+<section class="download bg-primary text-center" id="anchor">
+  <div class="container">
+    <h2 class="section-heading text-center"><i class="fa fa-headphones"></i>&nbsp;Step 2: Audio Test</h2>
+    <div class="row">
+      <div class='col-2'></div>
+      <div class="col-4">
+        <%= image_tag 'smokin.jpg', class: 'img-fluid'  %>
+      </div>
+      <div class='col-4'>
+        <div class="card">
+          <div class="card-body text-left">
+            <h4 class="card-title">Instructions</h4>
+            <p>You will be played an audio file with varying frequencies. Use the audio check to adjust your volume. Press start test when you're ready.</p>
+            <p>Every time you hear a sound press the button "Yes". If you stop hearing any sound, press "No".</p>
+            <br/>
+            <ul>
+              <li>Use headphones</li>
+              <li>Use low volume</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class='col-2'></div>
+      <%= simple_form_for @visit, url: visit_audio_update_path, method: :post, html: { id: 'audio-form' } do |f| %>
+      <%= f.input :audio_threshold %>
+      <%= f.submit %>
+      <% end %>
+    </div><!-- row -->
+    <div class='row' id='first-buttons'>
+      <div class='col-2'></div>
+      <div class='col-2'>
+        <a href="javascript:audioCheck();" id='audio-check' class="btn btn-outline btn-xl">Audio Check</a>
+      </div>
+      <div class='col-2'>
+        <a href="javascript:startTest();" id='start-test' class="btn btn-outline btn-xl">Start Test</a>
+      </div>
+    </div>
+    <div class='row' id='second-buttons'>
+      <div class='col-2'></div>
+      <div class='col-2'>
+        <a href="javascript:buttonYes();" id='button-yes' class="btn btn-outline btn-xl">Yes</a>
+      </div>
+      <div class='col-2'>
+        <a href="javascript:buttonNo();" id='button-no' class="btn btn-outline btn-xl">No</a>
+      </div>
+    </div>
+  </div>
+</section

@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   resources :visits do
     post :photo, on: :collection
-    post :audio, on: :collection
-    post :correct, on: :collection
+    get :audio
+    post :audio_update
+    get :questions
+    post :questions_update
+    get :result
   end
   devise_for :users
   root to: 'visits#index'
