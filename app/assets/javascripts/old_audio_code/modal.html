@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h2>Auditory Test</h2>
+
+<p id="demo"></p>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Start Test</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" >
+    <span class="close">&times;</span>
+    <p id="main_text">(Did you hear it?)</p>
+    <button id="yesBtn" type="button">Yes</button>
+    <button id="noBtn" type="button">No</button>
+    <button id="againBtn" type="button">Again</button>
+    <script src="sound.js"></script>
+    <button id="prntBtn" type="button">Print</button>
+    <!--
+    <audio controls preload="auto">
+           <source src="../frequency/converted/sine_17000-converted.wav" type="audio/wav">
+           <source src="../frequency/converted/sine_17000-converted.mp3" type="audio/mp3">
+    </audio>
+    <audio controls preload="auto">
+           <source src="../frequency/converted/sine_20000-converted.wav" type="audio/wav">
+           <source src="../frequency/converted/sine_20000-converted.mp3" type="audio/mp3">
+    </audio>
+    --!>
+  </div>
+
+</div>
+
+<script src="sound.js"></script>
+<script>
+
+// the "database"
+var test_freqs = new Array();
+var current_freq = 0;
+// Have we finished the test?
+var have_finished = false;
+// Generator object for our frequencies
+var generator = null;
+
+window.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+var yesbtn = document.getElementById("yesBtn");
+var nobtn = document.getElementById("noBtn");
+var prntbtn = document.getElementById("prntBtn");
+var again = document.getElementById("againBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+disableButtons = function(){
+    yesbtn.disabled=true;
+    nobtn.disabled=true;
+    again.disabled=true;
+    if (!have_finished){
+        setTimeout(function(){
+        yesbtn.disabled=false;
+        nobtn.disabled=false;
+        again.disabled=false;
+        }, 1100)
+    }
+}
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+btn.disabled=true;
+modal.style.display = "block";
+current_freq = main(audioCtx, test_freqs);
+disableButtons();
+}
+
+yesbtn.onclick = function(){
+test_freqs.push([current_freq, 1]);
+current_freq = main(audioCtx, test_freqs);
+disableButtons();
+}
+
+nobtn.onclick = function(){
+test_freqs.push([current_freq, 0]);
+current_freq = main(audioCtx, test_freqs);
+disableButtons();
+}
+
+again.onclick = function(){
+    make_sound(current_freq, audioCtx);
+}
+
+prntbtn.onclick = function(){
+var text, fLen, i;
+var sort_freqs = test_freqs.sort(function(left, right){return left[0]>right[0];});
+fLen = sort_freqs.length;
+text = "<ul>";
+for (i = 0; i < fLen; i++) {
+    text += "<li>" + sort_freqs[i][0] + " " + sort_freqs[i][1] + "</li>";
+}
+text += "</ul>";
+document.getElementById("demo").innerHTML = text;
+}
+
+function hide_modal(){
+    btn.disabled=false;
+    modal.style.display = "none";
+    delete generator;
+    delete test_freqs;
+    generator = null;
+    test_freqs = new Array();
+    current_freq = 0;
+    document.getElementById("main_text").innerHTML="Can you hear this note?";
+    have_finished = false;
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = hide_modal
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        hide_modal();
+    }
+}
+</script>
+
+</body>
+</html>
