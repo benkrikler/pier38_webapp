@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-body text-left">
+    <h4 class="card-title">Our AI estimates your age at 19 years.</h4>
+    <p>Result Selfie:&nbsp;<%= @visit.predicted_image_age %></p>
+    <p>Result Audio:&nbsp;&nbsp;<%= @visit.predicted_audio_age %></p>
+    <div class='text-center'>
+      <%= image_tag '002-tongue-out.png', class: 'img-fluid mx-auto'  %>
+    </div>
+    <br/>
+    <p>The machine is still learning...</p>
+  </div>
+</div>
