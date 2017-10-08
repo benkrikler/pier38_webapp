@@ -39,6 +39,11 @@ function submitForm(){
 }
 
 $(document).on('turbolinks:load', function() {
+  if($('#anchor').length){
+    $('html, body').animate({
+      scrollTop: $('#anchor').offset().top
+    }, 1000);
+  }
   hideSecond();
   $('#audio-form').hide();
 });

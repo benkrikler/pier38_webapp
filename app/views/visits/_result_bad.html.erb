@@ -1,10 +1,11 @@
 <div class="card">
   <div class="card-body text-left">
-    <h4 class="card-title">Our AI estimates your age at 19 years.</h4>
+    <h4 class="card-title">Our AI estimates your age at <%= @visit.estimated_age %> years.</h4>
+    <p>Your Age:&nbsp;<%= @visit.age %></p>
     <p>Result Selfie:&nbsp;<%= @visit.predicted_image_age %></p>
     <p>Result Audio:&nbsp;&nbsp;<%= @visit.predicted_audio_age %></p>
     <div class='text-center'>
-      <%= image_tag '002-quiet.png', class: 'img-fluid mx-auto'  %>
+      <%= image_tag '005-quiet.png', class: 'img-fluid mx-auto'  %>
     </div>
     <br/>
     <p>Whoops, learning is a long process, right?</p>

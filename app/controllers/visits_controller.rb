@@ -34,14 +34,40 @@ class VisitsController < InheritedResources::Base
   def questions_update
     @visit = Visit.find(params[:visit_id])
     @visit.update(visit_params)
+    if @visit.predicted_audio_age.present?
+      audio_age = @visit.predicted_audio_age
+    else
+      audio_age = 1
+    end
+    if @visit.predicted_image_age.present?
+      image_age = @visit.predicted_image_age
+    else
+      image_age = 1
+    end
+    est_age = (audio_age + image_age) / 2
+    est_age.round
+    age = @visit.age
+    if age.present?
+      age.round
+    else
+      age = 1
+    end
+    result = 'good'
+    if est_age.between?(age - 3, age + 3)
+      result = 'good'
+    end
+    if est_age.between?(age - 5, age + 5)
+      result = 'bad'
+    end
+    if (age > est_age + 5) || (age < est_age - 5)
+      result = 'ugly'
+    end
+    @visit.update(result: result, estimated_age: est_age)
     redirect_to visit_result_path(@visit.id)
   end
 
   def result
     @visit = Visit.find(params[:visit_id])
-    est_age = (@visit.predicted_audio_age + @visit.predicted_image_age) / 2
-    est_age.round
-    @visit.update(result: 'good')
   end
 
   def visit_params
