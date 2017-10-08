@@ -1,12 +1,23 @@
 <%= render partial: 'visits/landing' %>
 
 <section class="download bg-primary text-center" id="anchor">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <h2 class="section-heading">Tell us about yourself</h2>
-        <%= @visit.inspect %>
-      </div>
+  <h2 class="section-heading text-center"><i class="fa fa-id-card-o"></i>&nbsp;Results: You look like...</h2>
+  <div class="row">
+    <div class='col-2'></div>
+    <div class="col-4">
+      <%= image_tag @visit.photo_file, class: 'img-fluid'  %>
+      <p>You are contributer <%= @visit.id %>. Thank you for your help!</p>
     </div>
-  </div>
+    <div class='col-4'>
+      <% case @visit.result %>
+      <% when 'good' %>
+        <%= render 'visits/result_good' %>
+      <% when 'bad' %>
+        <%= render 'visits/result_bad' %>
+      <% when 'ugly' %>
+        <%= render 'visits/result_ugly' %>
+      <% end %>
+    </div>
+    <div class='col-2'></div>
+  </div><!-- row -->
 </section>

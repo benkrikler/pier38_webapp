@@ -9,7 +9,7 @@ class PredictAudioAgeService
   end
 
   def call
-    body = { audio_threshold: 9.12345 }
+    body = { audio_threshold: @visit.audio_threshold }
     response = self.class
                    .get('/api/audio',
                         body: body.to_json,

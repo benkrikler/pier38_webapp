@@ -15,14 +15,14 @@ class VisitsController < InheritedResources::Base
 
   def audio
     @visit = Visit.find(params[:visit_id])
-    response = PredictAudioAgeService.new(@visit).call
-    @visit.update(predicted_audio_age: response.parsed_response["prediction"])
     render :audio
   end
 
   def audio_update
     @visit = Visit.find(params[:visit_id])
     @visit.update(audio_threshold: visit_params[:audio_threshold])
+    response = PredictAudioAgeService.new(@visit).call
+    @visit.update(predicted_audio_age: response.parsed_response["prediction"])
     redirect_to visit_questions_path(@visit.id)
   end
 
@@ -39,6 +39,9 @@ class VisitsController < InheritedResources::Base
 
   def result
     @visit = Visit.find(params[:visit_id])
+    est_age = (@visit.predicted_audio_age + @visit.predicted_image_age) / 2
+    est_age.round
+    @visit.update(result: 'good')
   end
 
   def visit_params
@@ -57,6 +60,7 @@ class VisitsController < InheritedResources::Base
                   :father_origin,
                   :birthday_year,
                   :birthday_month,
-                  :hearing_impaired)
+                  :hearing_impaired,
+                  :age)
   end
 end
